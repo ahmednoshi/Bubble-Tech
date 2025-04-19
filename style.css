@@ -1,0 +1,1498 @@
+/* ------- Osmo [https://osmo.supply/] ------- */
+/* Osmo UI: https://slater.app/10324/23333.css */
+
+body{
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+}
+
+/* 1. نجعل الأب .heroo موضِعاً نسبياً */
+.heroo {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(circle, rgb(0, 0, 0) , rgba(0,0,0) );
+  overflow: hidden;
+}
+
+/* 2. ننقل الـ canvas ليكون داخل .heroo وبموضع absolute */
+.heroo #webgl-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* 3. نمنع ظهور canvas خارج .heroo */
+#webgl-canvas {
+  display: block; /* ضمن .heroo فقط */
+}
+
+/* بقية التنسيقات تبقى كما هي */
+#app {
+  position: relative;
+  height: 100%;
+  font-family: "Montserrat", serif;
+}
+
+.hero {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2; /* فوق الـ canvas */
+}
+
+/* ... وبقية الـ CSS دون تغيير ... */
+
+
+h1, h2 {
+  margin: 0;
+  padding: 0;
+  color: rgb(255, 255, 255);
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgb(22, 24, 138);
+  line-height: 100%;
+  user-select: none;
+}
+
+h1 {
+  position: relative;
+  z-index: 2;
+  font-size: 100px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 80px;
+  font-weight: 500;
+}
+
+#webgl-canvas {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.buttons {
+  position: absolute;
+  width: 100%;
+  bottom: 15px;
+  z-index: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+button {
+  font-family: "Montserrat", serif;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  border: 1px solid grey;
+  padding: 4px 8px;
+}
+
+
+
+
+/*................ For section silder.................. */
+
+
+
+
+.sep{
+  background-color: var(--color-black);
+  color: var(--color-light);
+  font-size: var(--size-font);
+  width: 100%;
+  height: 100%;
+}
+
+.cloneable {
+  padding: var(--container-padding);
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  display: flex;
+  position: relative;
+  font-size: 1.1vw;
+}
+
+.overlay {
+  z-index: 2;
+  background-image: linear-gradient(90deg, var(--color-neutral-900) 85%, #0000);
+  justify-content: flex-start;
+  align-items: center;
+  width: 37.5em;
+  height: 100%;
+  padding-left: 2em;
+  display: flex;
+  position: absolute;
+  inset: 0% auto 0% 0%;
+}
+
+.overlay-inner {
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 28.125em;
+  display: flex;
+}
+
+.overlay-count-row {
+  grid-column-gap: .2em;
+  grid-row-gap: .2em;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: PP Neue Corp, Impact, sans-serif;
+  font-size: 5.625em;
+  font-weight: 700;
+  display: flex;
+}
+
+.count-column {
+  height: 1em;
+  overflow: hidden;
+}
+
+.count-heading {
+  width: 2ch;
+  font-size: 1em;
+  line-height: 1;
+  margin: 0px;
+}
+
+.count-row-divider {
+  background-color: var(--color-light);
+  width: 2px;
+  height: .75em;
+  transform: rotate(15deg);
+}
+
+.overlay-nav-row {
+  grid-column-gap: 2em;
+  grid-row-gap: 2em;
+  display: flex;
+}
+
+.button {
+  background-color: #0000;
+  color: #fff;
+  border: 1px solid #fff3;
+  border-radius: .4em;
+  justify-content: center;
+  align-items: center;
+  width: 4em;
+  height: 4em;
+  padding: 0;
+  display: flex;
+  position: relative;
+}
+
+.button-arrow {
+  flex: none;
+  width: 1em;
+  height: .75em;
+}
+
+.button-arrow.next {
+  transform: rotate(180deg);
+}
+
+.button-overlay {
+  z-index: 2;
+  position: absolute;
+  inset: -1px;
+}
+
+.overlay-corner {
+  border-top: 1px solid var(--color-light);
+  border-left: 1px solid var(--color-light);
+  border-top-left-radius: .4em;
+  width: 1em;
+  height: 1em;
+}
+
+.overlay-corner.top-right {
+  position: absolute;
+  inset: 0% 0% auto auto;
+  transform: rotate(90deg);
+}
+
+.overlay-corner.bottom-left {
+  position: absolute;
+  inset: auto auto 0% 0%;
+  transform: rotate(-90deg);
+}
+
+.overlay-corner.bottom-right {
+  position: absolute;
+  inset: auto 0% 0% auto;
+  transform: rotate(180deg);
+}
+
+.button, .button-overlay{ transition: transform 0.475s var(--cubic-default), opacity 0.475s var(--cubic-default)}
+
+.button:hover .button-overlay{ transform: scale(1.4); }
+.overlay-nav-row:hover:has(.button:hover) .button{ opacity: 0.4; }
+.button:hover{ transform: scale(0.85); opacity: 1 !important; }
+
+.main {
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0%;
+  overflow: hidden;
+}
+
+.slider-wrap {
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.slider-list {
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  display: flex;
+  position: relative;
+}
+
+.slider-slide {
+  flex: none;
+  width: 42.5em;
+  height: 28em;
+  padding-left: 1.25em;
+  padding-right: 1.25em;
+  transition: opacity .4s;
+  position: relative;
+}
+
+[data-slider="slide"]{ opacity: 0.2; }
+[data-slider="slide"].active { opacity: 1; } 
+[data-slider="slide"].active .slide-caption{ transition-delay:0.3s;} 
+
+.slide-inner {
+  border-radius: .5em;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+img{
+  width:100%;
+  height:100%;
+  object-fit:cover ;
+}
+
+.slide-caption {
+  z-index: 2;
+  grid-column-gap: .4em;
+  grid-row-gap: .4em;
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  white-space: nowrap;
+  border-radius: .25em;
+  justify-content: flex-start;
+  align-items: center;
+  padding: .4em .75em .4em .5em;
+  display: flex;
+  position: absolute;
+  top: 1.25em;
+  left: 1.25em;
+  overflow: hidden;
+}
+
+.caption-dot {
+  background-color: var(--color-dark);
+  border-radius: 10em;
+  flex: none;
+  width: .5em;
+  height: .5em;
+}
+
+.caption {
+  font-size: .75em;
+  font-family: arial;
+  margin: 0px;
+}
+
+.slide-caption{ transition: transform 0.525s var(--cubic-default), opacity 0.525s var(--cubic-default); transition-delay:0s; }
+
+html:not(.wf-design-mode) .slide-caption{ opacity: 0; transform:translate(-25%, 0px) }
+html:not(.wf-design-mode) [data-slider="slide"].active .slide-caption{ opacity: 1; transform:translate(0%, 0px) }
+
+
+@font-face {
+  font-family: 'PP Neue Corp';
+  src: url('https://cdn.prod.website-files.com/6717aac16c9ea22eeef1e79e/6717de2d56e40b921572d2d9_PPNeueCorp-TightUltrabold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+
+
+/*........................ for Phone ...................... */  
+
+/* .sec3 .left-part{
+  width: 60%;
+}
+
+
+.sec3 .right-part{
+  width: 30%;
+} */
+
+.realistic-section {
+  display: flex;
+  gap: 80px;
+  padding: 60px;
+  background: #000000;
+  position: relative;
+}
+
+
+.icon{
+  text-align: center;
+}
+
+.phone-area {
+  position: relative;
+  width: 330px;
+}
+
+.phone-img {
+  width: 100%;
+  display: block;
+}
+
+
+
+.sec3{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+}
+/* الأسهم */
+.line {
+  position: absolute;
+  width: 120px;
+  height: 4px;
+  border-top: 4px dotted #008080; /* منقّط بلون أبيض */
+  transform-origin: left center;
+}
+
+/* رأس السهم */
+
+
+.line-1 {
+  top: 180px;
+  left: 320px;
+  transform: rotate(-45deg);
+}
+
+
+
+
+.line-2 {
+  top: 320px;
+  left: 320px;
+  transform: rotate(0deg);
+}
+
+.line-3 {
+  top: 500px;
+  left: 320px;
+  transform: rotate(30deg);
+}
+
+
+/* المميزات */
+.features-area {
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+  margin-top: 10px;
+}
+
+.feature-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  width: 300px;
+  position: relative;
+}
+
+.icon {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  margin: 0;
+  font-size: 20px;
+}
+
+p {
+  margin-top: 5px;
+  color: #555;
+}
+
+
+
+/* @keyframes autoRun3d {
+  from {
+    transform: perspective(300px) rotateY(-360deg);
+  }
+  to {
+    transform: perspective(300px) rotateY(0deg);
+  }
+}
+
+@keyframes animateBrightness {
+  10% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(0.1);
+  }
+  90% {
+    filter: brightness(1);
+  }
+}
+
+.card-3d {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  transform-style: preserve-3d;
+  transform: perspective(800px);
+  animation: autoRun3d 20s linear infinite;
+  will-change: transform;
+}
+
+.card-3d div {
+  position: absolute;
+  width: 300px;
+  height: 400px;
+  background-color: rgb(199, 199, 199);
+  border: solid 2px lightgray;
+  border-radius: 0.5rem;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  animation: animateBrightness 20s linear infinite;
+  transition-duration: 200ms;
+  will-change: transform, filter;
+}
+
+.card-3d:hover {
+  animation-play-state: paused !important;
+}
+
+.card-3d:hover div {
+  animation-play-state: paused !important;
+}
+
+.card-3d div:nth-child(1) {
+  transform: translate(-50%, -50%) rotateY(0deg) translateZ(150px);
+  animation-delay: -0s;
+}
+
+.card-3d div:nth-child(2) {
+  transform: translate(-50%, -50%) rotateY(36deg) translateZ(150px);
+  animation-delay: -2s;
+}
+
+.card-3d div:nth-child(3) {
+  transform: translate(-50%, -50%) rotateY(72deg) translateZ(150px);
+  animation-delay: -4s;
+}
+
+.card-3d div:nth-child(4) {
+  transform: translate(-50%, -50%) rotateY(108deg) translateZ(150px);
+  animation-delay: -6s;
+}
+
+.card-3d div:nth-child(5) {
+  transform: translate(-50%, -50%) rotateY(144deg) translateZ(150px);
+  animation-delay: -8s;
+}
+
+.card-3d div:nth-child(6) {
+  transform: translate(-50%, -50%) rotateY(180deg) translateZ(150px);
+  animation-delay: -10s;
+}
+
+.card-3d div:nth-child(7) {
+  transform: translate(-50%, -50%) rotateY(216deg) translateZ(150px);
+  animation-delay: -12s;
+}
+
+.card-3d div:nth-child(8) {
+  transform: translate(-50%, -50%) rotateY(252deg) translateZ(150px);
+  animation-delay: -14s;
+}
+
+.card-3d div:nth-child(9) {
+  transform: translate(-50%, -50%) rotateY(288deg) translateZ(150px);
+  animation-delay: -16s;
+}
+
+.card-3d div:nth-child(10) {
+  transform: translate(-50%, -50%) rotateY(324deg) translateZ(150px);
+  animation-delay: -18s;
+}
+
+
+
+.card-3d div {
+  position: absolute;
+  width: 80px;
+  height: 112px;
+  background-color: rgb(199, 199, 199);
+  border: solid 2px lightgray;
+  border-radius: 0.5rem;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  animation: animateBrightness 20s linear infinite;
+  transition-duration: 200ms;
+  will-change: transform, filter;
+
+  background-size: cover;
+  background-position: center;
+}
+
+
+
+
+
+.card-3d div:nth-child(1) { background-image: url('./img/05c34b8d-5bb1-4280-b621-6beced8ad4e3.jpeg'); }
+.card-3d div:nth-child(2) { background-image: url('./img/1ac24847-5481-4fdb-af03-d494f630e003.jpeg'); }
+.card-3d div:nth-child(3) { background-image: url('./img/86cf5a1f-e09f-44e5-8b31-5a87a4275bdb.jpeg'); }
+.card-3d div:nth-child(4) { background-image: url('./img/e3c85316-b26a-4f77-8846-9ade1eb74c59.jpeg'); }
+.card-3d div:nth-child(5) { background-image: url('./img/iphone\ 13\ black.jpeg'); }
+.card-3d div:nth-child(6) { background-image: url('./img/iphone\ 14\ pro\ clear\ case.jpeg'); }
+.card-3d div:nth-child(7) { background-image: url('./img/iphone\ 14pro\ max.jpeg'); }
+.card-3d div:nth-child(8) { background-image: url('./img/Nintendo\ Switch\ OLED\ Soft-Touch\ MystiQ\ Grey\ StealthMatte\ Skin\ -\ MYSTIQ\ Grey\ _\ 9H\ Tempered\ Glass\ Screen\ Protector.jpeg'); }
+.card-3d div:nth-child(9) { background-image: url('./img/05c34b8d-5bb1-4280-b621-6beced8ad4e3.jpeg'); }
+.card-3d div:nth-child(10) { background-image: url('./img/86cf5a1f-e09f-44e5-8b31-5a87a4275bdb.jpeg'); }  */
+
+
+
+
+
+
+
+
+
+/* ........................for laptop........................ */
+
+
+/* الجزء الأساسي */
+.realistic-section2 {
+  display: flex;
+  gap: 100px;
+  padding: 60px;
+  background: #000000;
+  position: relative;
+}
+.sec4{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+}
+
+/* المنطقة الخاصة باللابتوب */
+.laptop-container {
+  position: relative;
+  width: 400px;
+}
+
+.laptop-img {
+  width: 100%;
+  display: block;
+}
+
+/* الأسهم المنقّطة */
+.arrow {
+  position: absolute;
+  width: 200px;
+  height: 2px;
+  border-top: 4px dotted #008080; /* منقّط باللون الأبيض */
+  transform-origin: left center;
+}
+
+/* تعديل أماكن الأسهم */
+.arrow-1 {
+  top: 140px;
+  left: 400px;
+  transform: rotate(-30deg);
+}
+
+.arrow-2 {
+  top: 300px;
+  left: 400px;
+  transform: rotate(0deg);
+}
+
+.arrow-3 {
+  top: 450px;
+  left: 400px;
+  transform: rotate(30deg);
+}
+
+/* منطقة المميزات */
+.features-container {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-top: 10px;
+}
+
+/* صندوق كل ميزة */
+.feature-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  width: 300px;
+  position: relative;
+}
+
+.custom-icon{
+  display: flex;  
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  margin: 0;
+  font-size: 20px;
+}
+
+p {
+  margin-top: 5px;
+  color: #555;
+}
+
+
+
+
+
+/* ........................for airpods........................ */
+
+
+.sec5{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+}
+
+/* الجزء الأساسي */
+.airpods-section-custom {
+  display: flex;
+  gap: 80px;
+  padding: 60px;
+  background: #000000; /* اللون الأزرق */
+  position: relative;
+}
+
+/* المنطقة الخاصة بـ AirPods */
+.airpods-img-container {
+  position: relative;
+  width: 350px;
+}
+
+.airpods-img {
+  width: 100%;
+  display: block;
+}
+
+/* الأسهم المنقّطة */
+.custom-arrow {
+  position: absolute;
+  width: 300px;
+  height: 2px;
+  border-top: 4px dotted #008080; /* منقّط باللون الأبيض */
+  transform-origin: left center;
+}
+
+/* تعديل أماكن الأسهم */
+.custom-arrow-1 {
+  top: 200px;
+  left: 250px;
+  transform: rotate(-30deg);
+}
+
+.custom-arrow-2 {
+  top: 320px;
+  left: 280px;
+  transform: rotate(0deg);
+}
+
+.custom-arrow-3 {
+  top: 420px;
+  left: 250px;
+  transform: rotate(30deg);
+}
+
+/* منطقة المميزات */
+.custom-features-container {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-top: 10px;
+}
+
+/* صندوق كل ميزة */
+.custom-feature-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  width: 300px;
+  position: relative;
+}
+
+.custom-icon {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  margin: 0;
+  font-size: 20px;
+}
+
+p {
+  margin-top: 5px;
+  color: #555;
+}
+
+
+
+/* ........................for watch........................ */
+/* الجزء الأساسي */
+.watch-section {
+  display: flex;
+  gap: 80px;
+  padding: 60px;
+  background: #000000; /* اللون الأزرق */
+  position: relative;
+}
+
+.icon-watch{
+ text-align: center;
+}
+
+
+
+/* .sec6{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+} */
+
+/* المنطقة الخاصة بـ الساعة */
+.watch-container {
+  position: relative;
+  width: 550px;
+}
+
+.watch-img {
+  width: 100%;
+  display: block;
+}
+
+/* الأسهم المنقّطة */
+.arrow-new {
+  position: absolute;
+  width: 350px;
+  height: 2px;
+  border-top: 4px dotted #008080; /* منقّط باللون الأبيض */
+  transform-origin: left center;
+}
+
+/* تعديل أماكن الأسهم */
+.arrow-watch-1 {
+  top: 150px;
+  left: 350px;
+  transform: rotate(-15deg);
+}
+
+.arrow-watch-2 {
+  top: 230px;
+  left: 350px;
+  transform: rotate(15deg);
+}
+
+.arrow-watch-3 {
+  top: 320px;
+  left: 300px;
+  transform: rotate(30deg);
+}
+.arr{
+  width: 400px;
+}
+
+/* منطقة المميزات */
+.watch-features {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-top: 10px;
+}
+
+/* صندوق كل ميزة */
+.feature-box-watch {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  width: 300px;
+  position: relative;
+}
+
+.icon-watch {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  margin: 0;
+  font-size: 20px;
+}
+
+p {
+  margin-top: 5px;
+  color: #555;
+}
+/* ........................for ipad........................ */
+
+
+
+/* الجزء الأساسي */
+.ipad-section-custom {
+  display: flex;
+  gap: 80px;
+  padding: 60px;
+  background: #000000; /* اللون الأزرق */
+  position: relative;
+}
+ .sec7{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+}  
+
+/* المنطقة الخاصة بـ iPad */
+.ipad-img-container {
+  position: relative;
+  width: 350px;
+}
+
+.ipad-img {
+  width: 100%;
+  display: block;
+}
+
+/* الأسهم المنقّطة */
+.custom-arrow {
+  position: absolute;
+  width: 200px;
+  height: 2px;
+  border-top: 4px dotted #008080; /* منقّط باللون الأبيض */
+  transform-origin: left center;
+}
+
+/* تعديل أماكن الأسهم */
+.custom-arrow-ipad-1 {
+  top: 120px;
+  left: 350px;
+  transform: rotate(-30deg);
+}
+
+.custom-arrow-ipad-2 {
+  top: 300px;
+  left: 350px;
+  transform: rotate(0deg);
+}
+
+.custom-arrow-ipad-3 {
+  top: 430px;
+  left: 350px;
+  transform: rotate(30deg);
+}
+
+/* منطقة المميزات */
+.ipad-features-custom {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-top: 10px;
+}
+
+/* صندوق كل ميزة */
+.custom-feature-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  width: 300px;
+  position: relative;
+}
+
+.custom-icon-ipad {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  margin: 0;
+  font-size: 20px;
+  text-align: center;
+}
+
+p {
+  margin-top: 5px;
+  color: #555;
+  text-align: center;
+}
+
+
+/* ........................for causorl........................ */
+
+
+
+
+.sec8{
+  margin-top: 100px;
+  margin-bottom: 150px;  
+  background-color: #000000;
+  width: 100%;
+  
+}
+
+.t-section-title {
+  text-align: center;
+  font-size: 28px;
+  margin: 40px 0 20px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.t-section-title span{
+  color: #008080;
+  font-size: 50px;
+}
+
+.t-carousel {
+  max-width: 800px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #000000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  padding: 30px 0;
+}
+
+.t-track {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+.t-card {
+  min-width: 100%;
+  padding: 0 30px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.t-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 4px solid #008080;
+  object-fit: cover;
+  margin-bottom: 15px;
+  transition: transform 0.3s;
+}
+
+.t-avatar:hover {
+  transform: scale(1.05);
+}
+
+.t-card h3 {
+  margin: 10px 0 5px;
+  color: #008080;
+  font-size: 20px;
+}
+
+.t-card p {
+  font-size: 17px;
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+.t-buttons {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  transform: translateY(-50%);
+}
+
+.t-btn {
+  background-color: #008080;
+  border: none;
+  color: white;
+  font-size: 22px;
+  border-radius: 50%;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.t-btn:hover {
+  background-color: #008080;
+}
+
+
+
+
+/*.............. For title in all of the section to 3 from 9.............. */
+
+.ipad9{
+  text-align: center;
+  font-size: 40px;
+  margin: 40px ;
+  padding: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: underline #008080 ;
+  
+}
+
+.ipad9 span{
+  color: #008080;
+  font-size:50px ;
+
+}
+
+
+
+/* ...............for our products ................*/
+
+
+
+*, ::before, ::after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+.ingo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  font: 1rem system-ui;
+}
+
+.cards {
+  --img-w: 200px;
+  --duration: 300ms;
+  --img-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: min(100% - 4rem, 800px);
+  margin-inline: auto;
+  display: grid;
+  counter-reset: my-counter;
+  position: relative;
+}
+
+.card {
+  grid-area: 1/1;
+  display: grid;
+  place-items: center;
+  grid-template-columns: auto;
+  grid-template-rows: var(--img-w) auto;
+  gap: 2rem;
+  z-index: -1;
+  text-align: center;
+}
+
+@media (min-width: 600px) {
+  .card {
+    grid-template-columns: var(--img-w) auto;
+    grid-template-rows: auto;
+    gap: 4rem;
+  }
+}
+
+.card-img {
+  width: 200px;
+  height: 200px;
+  rotate: var(--angle, 0deg);
+  border-radius: 10px;
+  border: 3px solid #FFF;
+  object-fit: cover;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card-data {
+  display: grid;
+  gap: 1rem;
+}
+
+.card-data > h2,
+.card-data > p {
+  transition: var(--duration) ease-in-out;
+  transition-delay: var(--data-delay, 0ms);
+  opacity: var(--data-opacity, 0);
+  translate: 0 var(--data-y, 20px);
+  font-size: 20px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input:checked + .card {
+  --data-opacity: 1;
+  --data-y: 0;
+  --data-delay: var(--duration);
+  z-index: 10;
+}
+
+input:checked + .card > .card-img {
+  animation: reveal-img calc(var(--duration) * 2) forwards;
+}
+
+@keyframes reveal-img {
+  50% {
+    translate: -150% 0;
+    --angle: 0deg;
+  }
+}
+
+.navigation {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navigation button {
+  background: #eee;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.navigation button:hover {
+  background: #ccc;
+}
+
+#counter {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #008080;
+}
+
+
+
+
+
+
+/* ...............for contact ................*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ...............for follow us ................*/
+
+
+.item-card {
+  position: relative;
+  height: 300px;
+  width: 230px;
+}
+.item-card:nth-child(2) {
+  filter: hue-rotate(300deg) brightness(1.3);
+}
+.item-card:nth-child(3) {
+  filter: hue-rotate(200deg) brightness(1.5);
+}
+.item-card:nth-child(4) {
+  filter: hue-rotate(60deg) brightness(3);
+}
+.item-card .glow {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border: 1px solid rgb(255, 255, 255);
+  transform: scale(0.8);
+  box-shadow: #008080 0px 30px 70px 0px;
+  transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+.item-card .card-body {
+  width: 230px;
+  height: 300px;
+  overflow: hidden;
+  background: linear-gradient(
+    0deg,
+    #ffffff 0%,
+    rgb(255, 255, 255) 60%,
+    #ffffff 100%
+  );
+  position: relative;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 40px,
+    100% calc(100% - 40px),
+    calc(100% - 40px) 100%,
+    40px 100%,
+    0 calc(100% - 40px)
+  );
+  box-shadow: #008080 0px 7px 29px 0px;
+  transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+.card-body .corner-top {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 0px;
+  height: 0px;
+  z-index: 2;
+  border-top: 115px solid black;
+  border-left: 115px solid transparent;
+  border-right: 115px solid transparent;
+  transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+.card-body .side-panel {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  transform: translateX(-50%);
+  height: 101%;
+  background: black;
+  clip-path: polygon(0% 0%, 50% 0, 95% 45%, 100% 100%, 0% 100%);
+  transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) 1s;
+}
+.card-body .left-panel {
+  left: 0;
+}
+.card-body .right-panel {
+  right: 0;
+  transform: translateX(50%) scale(-1, 1);
+}
+.card-body .card-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 90px;
+  font-weight: bold;
+  font-size: 25px;
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.2s ease-out 0s;
+}
+.card-body .actions {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.actions .action-btn {
+  position: absolute;
+  transform: translateX(-50%);
+  padding: 5px 10px;
+  clip-path: polygon(0 0, 100% 0, 81% 100%, 21% 100%);
+  background: black;
+  border: none;
+  color: white;
+  display: grid;
+  place-content: center;
+  transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+.action-btn .icon {
+  width: 15px;
+  transition: all 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+.actions .action-btn:nth-child(1) {
+  bottom: 300px;
+  transition-delay: 0.4s;
+}
+.actions .action-btn:nth-child(2) {
+  bottom: 300px;
+  transition-delay: 0.6s;
+}
+.actions .action-btn:nth-child(3) {
+  bottom: 300px;
+  transition-delay: 0.8s;
+}
+.action-btn:hover .icon {
+  transform: scale(1.2);
+}
+.action-btn:active .icon {
+  transform: scale(0.7);
+}
+.item-card:hover .card-body {
+  transform: scale(1.1);
+}
+.item-card:hover .corner-top {
+  top: -50px;
+}
+.item-card:hover .left-panel {
+  left: -50px;
+  transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.1s;
+}
+.item-card:hover .right-panel {
+  right: -50px;
+  transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.1s;
+}
+.item-card:hover .card-title {
+  opacity: 1;
+  transition: all 0.2s ease-out 1.3s;
+}
+.item-card:hover .actions .action-btn:nth-child(1) {
+  bottom: 80px;
+  transition-delay: 0.8s;
+}
+.item-card:hover .actions .action-btn:nth-child(2) {
+  bottom: 40px;
+  transition-delay: 0.6s;
+}
+.item-card:hover .actions .action-btn:nth-child(3) {
+  bottom: 0;
+  transition-delay: 0.4s;
+}
+
+
+.contact{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+}
+
+/*...................... for footer...............  */
+
+* {
+  box-sizing: border-box; /* سيجعل كل العناصر تحسب المسافة الداخلية والخارجية ضمن العرض */
+}
+
+.footer {
+  background-color: #000000;
+  color: #fff;
+  padding: 20px ;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin-top: 40px ; /* إذا كنت تستخدم مارجن لضبط المسافات من الجانبين */
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer p {
+  font-size: 1em;
+  margin-bottom: 10px;
+  color: #fff;
+
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-icon {
+  display: inline-block;
+}
+
+.social-img {
+  width: 30px;
+  height: 30px;
+  transition: 0.3s ease-in-out;
+}
+
+.social-icon:hover .social-img {
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .social-icons {
+    gap: 15px;
+  }
+  .social-img {
+    width: 25px;
+    height: 25px;
+  }
+}
+
