@@ -2,10 +2,11 @@
 /* Osmo UI: https://slater.app/10324/23333.css */
 
 
-body{
+html,body{
   margin: 0;
   padding: 0;
   background-color: #000000;
+  overflow-x: hidden;
 }
 
 
